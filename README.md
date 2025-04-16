@@ -18,11 +18,16 @@ A simple Django application for managing items.
 4. Install dependencies: `pip install -r requirements.txt`
 5. Run migrations: `python manage.py migrate`
 6. Create a superuser: `python manage.py createsuperuser`
+   - Username: `admin`
+   - Email: `admin@example.com`
+   - Password: `admin123`
 7. Run the development server: `python manage.py runserver`
 
 ## Usage
 
 - Access the admin interface at: `http://localhost:8000/admin/`
+  - Username: `admin`
+  - Password: `admin123`
 - View the items list at: `http://localhost:8000/`
 - Access the payment page at: `http://localhost:8000/payment/`
 - View payment documentation at: `http://localhost:8000/payment-docs/`
