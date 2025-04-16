@@ -1,0 +1,130 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Payment Result{% endblock %}
+
+{% block content %}
+<div class="payment-result">
+    <h2>Payment Result</h2>
+    
+    {% if payment_success %}
+        <div class="alert alert-success">
+            <h3>Payment Successful!</h3>
+            <p>Your payment has been processed successfully.</p>
+        </div>
+    {% else %}
+        <div class="alert alert-danger">
+            <h3>Payment Failed</h3>
+            <p>{{ error_message }}</p>
+        </div>
+    {% endif %}
+    
+    <div class="payment-details">
+        <h3>Transaction Details</h3>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Order ID:</th>
+                    <td>{{ order_id }}</td>
+                </tr>
+                <tr>
+                    <th>Amount:</th>
+                    <td>{{ amount|floatformat:0 }} VND</td>
+                </tr>
+                <tr>
+                    <th>Transaction Date:</th>
+                    <td>{{ transaction_date }}</td>
+                </tr>
+                <tr>
+                    <th>Transaction No:</th>
+                    <td>{{ transaction_no }}</td>
+                </tr>
+                <tr>
+                    <th>Bank Code:</th>
+                    <td>{{ bank_code }}</td>
+                </tr>
+                <tr>
+                    <th>Card Type:</th>
+                    <td>{{ card_type }}</td>
+                </tr>
+                <tr>
+                    <th>Order Info:</th>
+                    <td>{{ order_info }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="actions">
+        <a href="{% url 'myapp:payment' %}" class="btn">Make Another Payment</a>
+        <a href="{% url 'myapp:index' %}" class="btn">Back to Home</a>
+    </div>
+</div>
+
+<style>
+    .payment-result {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+    
+    .alert-success {
+        background-color: #dff0d8;
+        border: 1px solid #d6e9c6;
+        color: #3c763d;
+    }
+    
+    .alert-danger {
+        background-color: #f2dede;
+        border: 1px solid #ebccd1;
+        color: #a94442;
+    }
+    
+    .payment-details {
+        margin-top: 20px;
+    }
+    
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .table th, .table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .table th {
+        width: 30%;
+        background-color: #f2f2f2;
+    }
+    
+    .actions {
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .btn {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 15px;
+        background-color: #2c3e50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+    
+    .btn:hover {
+        background-color: #1a252f;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}VNPAY Payment{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+    <h2>VNPAY Payment Integration</h2>
+    
+    <div class="payment-form">
+        <form action="{% url 'myapp:create_payment' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="order_id">Order ID:</label>
+                <input type="text" id="order_id" name="order_id" class="form-control" value="{{ order_id }}" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="amount">Amount (VND):</label>
+                <input type="number" id="amount" name="amount" class="form-control" min="10000" step="1000" value="10000" required>
+                <small class="form-text text-muted">Minimum amount: 10,000 VND</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="order_desc">Order Description:</label>
+                <textarea id="order_desc" name="order_desc" class="form-control" required>Payment for order</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="bank_code">Bank:</label>
+                <select id="bank_code" name="bank_code" class="form-control">
+                    <option value="">Select payment method (VNPAY Portal)</option>
+                    <option value="VNBANK">VNBANK - Local ATM/Bank account</option>
+                    <option value="INTCARD">INTCARD - International card</option>
+                    <option value="NCB">NCB - National Credit Bank</option>
+                    <option value="SCB">SCB - Saigon Commercial Bank</option>
+                    <option value="SACOMBANK">SACOMBANK - Saigon Thuong Tin Bank</option>
+                    <option value="EXIMBANK">EXIMBANK - Vietnam Export Import Bank</option>
+                    <option value="MSBANK">MSBANK - Maritime Bank</option>
+                    <option value="NAMABANK">NAMABANK - Nam A Bank</option>
+                    <option value="VISA">VISA - Visa Card</option>
+                    <option value="MASTERCARD">MASTERCARD - Master Card</option>
+                    <option value="JCB">JCB - JCB Card</option>
+                    <option value="UPI">UPI - UnionPay</option>
+                    <option value="VIB">VIB - Vietnam International Bank</option>
+                    <option value="VIETINBANK">VIETINBANK - Vietnam Joint Stock Commercial Bank for Industry and Trade</option>
+                    <option value="VIETCOMBANK">VIETCOMBANK - Joint Stock Commercial Bank for Foreign Trade of Vietnam</option>
+                    <option value="HDBANK">HDBANK - Ho Chi Minh City Development Bank</option>
+                    <option value="DONGABANK">DONGABANK - Dong A Bank</option>
+                    <option value="TPBANK">TPBANK - Tien Phong Bank</option>
+                    <option value="OJB">OJB - Ocean Bank</option>
+                    <option value="BIDV">BIDV - Bank for Investment and Development of Vietnam</option>
+                    <option value="TECHCOMBANK">TECHCOMBANK - Vietnam Technological and Commercial Joint Stock Bank</option>
+                    <option value="VPBANK">VPBANK - Vietnam Prosperity Joint Stock Commercial Bank</option>
+                    <option value="AGRIBANK">AGRIBANK - Vietnam Bank for Agriculture and Rural Development</option>
+                    <option value="MBBANK">MBBANK - Military Commercial Joint Stock Bank</option>
+                    <option value="ACB">ACB - Asia Commercial Bank</option>
+                    <option value="OCB">OCB - Orient Commercial Joint Stock Bank</option>
+                    <option value="SHB">SHB - Saigon - Hanoi Commercial Joint Stock Bank</option>
+                </select>
+                <small class="form-text text-muted">Leave empty to show VNPAY payment page with all options</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="language">Language:</label>
+                <select id="language" name="language" class="form-control">
+                    <option value="vn">Vietnamese</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="order_type">Order Type:</label>
+                <select id="order_type" name="order_type" class="form-control">
+                    <option value="billpayment">Bill Payment</option>
+                    <option value="topup">Topup</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .payment-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .payment-form {
+        margin-top: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    .btn-primary {
+        background-color: #2c3e50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .btn-primary:hover {
+        background-color: #1a252f;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}Items List{% endblock %}
+
+{% block content %}
+    <h2>Items List</h2>
+    
+    {% if items %}
+        <ul class="item-list">
+            {% for item in items %}
+                <li>
+                    <a href="{% url 'myapp:item_detail' item.id %}">{{ item.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items available.</p>
+    {% endif %}
+    
+    <div class="actions">
+        <a href="#" class="btn">Add New Item</a>
+    </div>
+{% endblock %}{% extends 'myapp/base.html' %}
+
+{% block title %}Items List{% endblock %}
+
+{% block content %}
+    <h2>Items List</h2>
+    
+    {% if items %}
+        <ul class="item-list">
+            {% for item in items %}
+                <li>
+                    <a href="{% url 'myapp:item_detail' item.id %}">{{ item.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items available.</p>
+    {% endif %}
+    
+    <div class="actions">
+        <a href="#" class="btn">Add New Item</a>
+    </div>
+{% endblock %}

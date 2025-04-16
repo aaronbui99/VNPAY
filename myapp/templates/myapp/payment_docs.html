@@ -1,0 +1,194 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}VNPAY Integration Documentation{% endblock %}
+
+{% block content %}
+<div class="docs-container">
+    <h2>VNPAY Integration Documentation</h2>
+    
+    <div class="section">
+        <h3>Overview</h3>
+        <p>This page provides documentation for the VNPAY payment gateway integration in our Django application. VNPAY is a popular payment gateway in Vietnam that allows customers to pay using various methods including QR codes, local bank accounts, and international cards.</p>
+    </div>
+    
+    <div class="section">
+        <h3>Integration Flow</h3>
+        <ol>
+            <li>Customer fills out the payment form with order details</li>
+            <li>Application creates a payment URL and redirects the customer to VNPAY</li>
+            <li>Customer completes the payment on VNPAY's platform</li>
+            <li>VNPAY redirects the customer back to our application with payment results</li>
+            <li>VNPAY also sends an IPN (Instant Payment Notification) to our server</li>
+            <li>Application processes the payment result and updates the order status</li>
+        </ol>
+        
+        <div class="flow-diagram">
+            <img src="https://sandbox.vnpayment.vn/apis/assets/images/flow/flow-pay.png" alt="VNPAY Flow Diagram">
+        </div>
+    </div>
+    
+    <div class="section">
+        <h3>Payment Methods</h3>
+        <p>VNPAY supports the following payment methods:</p>
+        <ul>
+            <li><strong>VNBANK</strong>: Local ATM/Bank account</li>
+            <li><strong>INTCARD</strong>: International card</li>
+            <li><strong>NCB, SCB, SACOMBANK, etc.</strong>: Specific bank codes</li>
+        </ul>
+        <p><strong>Note:</strong> In the sandbox environment, some payment methods like VNPAYQR might not be supported. If you encounter the error "Ngân hàng thanh toán không được hỗ trợ" (Payment bank is not supported), try using a different bank code or leave the bank selection empty to show all available options.</p>
+    </div>
+    
+    <div class="section">
+        <h3>Configuration</h3>
+        <p>The following configuration parameters are required for VNPAY integration:</p>
+        <ul>
+            <li><strong>vnp_TmnCode</strong>: Terminal ID provided by VNPAY</li>
+            <li><strong>vnp_HashSecret</strong>: Secret key provided by VNPAY</li>
+            <li><strong>vnp_Url</strong>: VNPAY payment URL</li>
+            <li><strong>vnp_ReturnUrl</strong>: URL to return to after payment</li>
+        </ul>
+        <p>For sandbox testing, use the following values:</p>
+        <ul>
+            <li><strong>vnp_TmnCode</strong>: 5NSOBVXL</li>
+            <li><strong>vnp_HashSecret</strong>: MLK8B3IOF5RJ2KTFS97KGM1JDWV8TQ3K</li>
+            <li><strong>vnp_Url</strong>: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html</li>
+            <li><strong>vnp_API_Url</strong>: https://sandbox.vnpayment.vn/merchant_webapi/api/transaction</li>
+        </ul>
+    </div>
+    
+    <div class="section">
+        <h3>Testing</h3>
+        <p>For testing purposes, you can use the following test cards:</p>
+        <table class="test-cards">
+            <thead>
+                <tr>
+                    <th>Card Number</th>
+                    <th>Card Name</th>
+                    <th>Expiry Date</th>
+                    <th>OTP</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>9704198526191432198</td>
+                    <td>NGUYEN VAN A</td>
+                    <td>07/15</td>
+                    <td>123456</td>
+                </tr>
+                <tr>
+                    <td>9704195798459170488</td>
+                    <td>NGUYEN VAN A</td>
+                    <td>07/15</td>
+                    <td>123456</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h3>Response Codes</h3>
+        <p>VNPAY returns the following response codes:</p>
+        <table class="response-codes">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>00</td>
+                    <td>Success</td>
+                </tr>
+                <tr>
+                    <td>01</td>
+                    <td>Transaction not found</td>
+                </tr>
+                <tr>
+                    <td>02</td>
+                    <td>Transaction already confirmed</td>
+                </tr>
+                <tr>
+                    <td>04</td>
+                    <td>Invalid amount</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>Invalid transaction</td>
+                </tr>
+                <tr>
+                    <td>24</td>
+                    <td>Invalid card information</td>
+                </tr>
+                <tr>
+                    <td>51</td>
+                    <td>Insufficient funds</td>
+                </tr>
+                <tr>
+                    <td>65</td>
+                    <td>Exceeded transaction limit</td>
+                </tr>
+                <tr>
+                    <td>75</td>
+                    <td>Exceeded number of incorrect PIN entries</td>
+                </tr>
+                <tr>
+                    <td>79</td>
+                    <td>Already refunded</td>
+                </tr>
+                <tr>
+                    <td>99</td>
+                    <td>Other errors</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h3>Try It Out</h3>
+        <p>You can try out the VNPAY integration by going to the <a href="{% url 'myapp:payment' %}">Payment Page</a>.</p>
+    </div>
+</div>
+
+<style>
+    .docs-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .section {
+        margin-bottom: 30px;
+    }
+    
+    .flow-diagram {
+        margin: 20px 0;
+        text-align: center;
+    }
+    
+    .flow-diagram img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    
+    table th, table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    
+    table th {
+        background-color: #f2f2f2;
+    }
+    
+    table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+</style>
+{% endblock %}
